@@ -9,18 +9,19 @@ import java.math.BigDecimal;
 @Entity
 @Getter @Setter
 @Table(name = "PhishingEmails")
-public class PhishingSamples {
+public class PhishingSample {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private String header;
     private String body;
+
     @Column(precision = 3, scale = 1)
     private BigDecimal fallPercentage;
 
-    public PhishingSamples(){}
+    public PhishingSample(){}
 
-    public PhishingSamples(Long id, String header, String body, BigDecimal fallPercentage) {
+    public PhishingSample(Long id, String header, String body, BigDecimal fallPercentage) {
         this.id = id;
         this.header = header;
         this.body = body;

@@ -1,12 +1,14 @@
 package svs.content.phishing.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import svs.content.phishing.models.PhishingSamples;
+import org.springframework.stereotype.Repository;
+import svs.content.phishing.models.PhishingSample;
 
 import java.util.Optional;
 
-public interface PhishingSampleRepository extends JpaRepository<PhishingSamples, Long> {
-    PhishingSamples getByHeader(String header);
+@Repository
+public interface PhishingSampleRepository extends JpaRepository<PhishingSample, Long> {
+    PhishingSample getByHeader(String header);
 
-    Optional<PhishingSamples> findByHeader(String header);
+    Optional<PhishingSample> findByHeader(String header);
 }

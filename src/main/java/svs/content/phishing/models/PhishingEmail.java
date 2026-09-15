@@ -9,12 +9,16 @@ public class PhishingEmail {
     private String header;
     private String body;
 
+    public PhishingEmail(){
+
+    }
+
     public PhishingEmail(String header, String body){
         this.header = header;
         this.body = body;
     }
 
-    public PhishingEmail(PhishingSamples sample){
+    public PhishingEmail(PhishingSample sample){
         this.header = sample.getHeader();
         this.body = sample.getBody();
     }
