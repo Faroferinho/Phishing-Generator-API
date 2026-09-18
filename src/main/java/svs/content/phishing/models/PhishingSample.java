@@ -7,24 +7,51 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Getter @Setter
+
 @Table(name = "PhishingEmails")
 public class PhishingSample {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     Long id;
 
+    @Getter @Setter
     private String header;
+    @Getter @Setter
     private String body;
 
-    @Column(precision = 3, scale = 1)
-    private BigDecimal fallPercentage;
+    private int totalClicks = 0;
+    private int bamboozledClicks = 0;
 
     public PhishingSample(){}
 
-    public PhishingSample(Long id, String header, String body, BigDecimal fallPercentage) {
+    public PhishingSample(Long id, String header, String body, int totalClicks, int bamboozledClicks) {
         this.id = id;
         this.header = header;
         this.body = body;
-        this.fallPercentage = fallPercentage;
+        this.totalClicks = totalClicks;
+        this.bamboozledClicks = bamboozledClicks;
+    }
+
+    public BigDecimal userBamboozled(){
+        BigDecimal fallPercentage;
+
+        totalClicks++;
+        bamboozledClicks++;
+
+        fallPercentage = new BigDecimal(bamboozledClicks);
+        fallPercentage.divide(new BigDecimal(totalClicks));
+
+        return fallPercentage;
+    }
+
+    public BigDecimal userNotBamboozled(){
+        BigDecimal fallPercentage;
+
+        totalClicks++;
+
+        fallPercentage = new BigDecimal(bamboozledClicks);
+        fallPercentage.divide(new BigDecimal(totalClicks));
+
+        return fallPercentage;
     }
 }

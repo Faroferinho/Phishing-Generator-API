@@ -6,6 +6,7 @@ import svs.content.phishing.models.PhishingEmail;
 import svs.content.phishing.models.PhishingSample;
 import svs.content.phishing.repositories.PhishingSampleRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,23 @@ public class PhishingSampleService {
         sample.setBody(email.getBody());
 
         return repository.save(sample);
+    }
+
+    public BigDecimal phishingBamboozleUser(String header){
+        PhishingSample sample = getPhishingSample(header).get();
+        return sample.userBamboozled();
+    }
+
+    public BigDecimal phishingDidntBamboozleUser(String header){
+        PhishingSample sample = getPhishingSample(header).get();
+        return sample.userNotBamboozled();
+    }
+
+    public void deletePhishing(Long id){
+        repository.delete(getPhishingSample(id).get());
+    }
+
+    public void deletePhishing(String header){
+        repository.delete(getPhishingSample(header).get());
     }
 }

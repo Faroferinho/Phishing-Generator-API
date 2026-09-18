@@ -24,7 +24,7 @@ public class PhishingController {
 
     @GetMapping("/random")
     public ResponseEntity<PhishingEmail> getRandomPhishing(){
-//        System.out.println("GET Request foi feito");
+        System.out.println("GET Request foi feito");
 
         List<PhishingSample> samples = service.getPhishingList();
 
@@ -33,6 +33,9 @@ public class PhishingController {
         }
 
         PhishingEmail email = new PhishingEmail(samples.get(random.nextInt(samples.size())));
+
+        System.out.println("Email:\n    Header: " + email.getHeader() + "\n    Body: " + email.getBody());
+
         return ResponseEntity.ok(email);
     }
 
