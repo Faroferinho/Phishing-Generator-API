@@ -8,6 +8,7 @@ import svs.content.phishing.models.PhishingEmail;
 import svs.content.phishing.models.PhishingSample;
 import svs.content.phishing.services.PhishingSampleService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
@@ -50,5 +51,25 @@ public class PhishingController {
         }
 
         return ResponseEntity.ok(service.postPhishingList(requestBody));
+    }
+
+    @PostMapping("/i=y")
+    public ResponseEntity<BigDecimal> userBamboozled(@RequestHeader("header") String header){
+        //System.out.println("-------------------------------------------");
+        //System.out.println("Email \"" + header + "\" was updated: ");
+
+        BigDecimal percentage = service.phishingBamboozleUser(header);
+
+        return ResponseEntity.ok(percentage);
+    }
+
+    @PostMapping("/i=n")
+    public ResponseEntity<BigDecimal> userNotBamboozled(@RequestHeader("header") String header){
+        //System.out.println("-------------------------------------------");
+        //System.out.println("Email \"" + header + "\" was updated: ");
+
+        BigDecimal percentage = service.phishingDidntBamboozleUser(header);
+
+        return ResponseEntity.ok(percentage);
     }
 }

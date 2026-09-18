@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 
@@ -38,8 +39,10 @@ public class PhishingSample {
         totalClicks++;
         bamboozledClicks++;
 
-        fallPercentage = new BigDecimal(bamboozledClicks);
-        fallPercentage.divide(new BigDecimal(totalClicks));
+        fallPercentage = BigDecimal.valueOf(bamboozledClicks)
+                            .multiply(BigDecimal.valueOf(100))
+                            .divide(BigDecimal.valueOf(totalClicks), 2, RoundingMode.HALF_UP);
+        //printNumbers("" + fallPercentage.doubleValue());
 
         return fallPercentage;
     }
@@ -49,9 +52,18 @@ public class PhishingSample {
 
         totalClicks++;
 
-        fallPercentage = new BigDecimal(bamboozledClicks);
-        fallPercentage.divide(new BigDecimal(totalClicks));
+        fallPercentage = BigDecimal.valueOf(bamboozledClicks)
+                            .multiply(BigDecimal.valueOf(100))
+                            .divide(BigDecimal.valueOf(totalClicks), 2, RoundingMode.HALF_UP);
+        //printNumbers("" + fallPercentage.doubleValue());
 
         return fallPercentage;
+    }
+
+    private void printNumbers(String percentage){
+        System.out.println("    totalClicks: " + totalClicks);
+        System.out.println("    bamboozledClicks: " + bamboozledClicks);
+        System.out.println("    Percentage: " + percentage);
+        System.out.println("-------------------------------------------");
     }
 }
