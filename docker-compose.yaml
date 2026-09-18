@@ -18,7 +18,7 @@ services:
 
   app:
     build: .
-    container_name: phishing-app
+    container_name: phishing
     ports:
       - "8081:8081"
     depends_on:
